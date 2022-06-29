@@ -63,15 +63,15 @@ defmodule ChatWeb.RoomLive do
     {:noreply, assign(socket, messages: join_messages ++ leave_messages, user_list: user_list)}
   end
 
-  def display_message(%{type: :system, uuid: uuid, content: content}) do
-    ~E"""
-    <p id="<%= uuid %>"><em><%= content %></em></p>
+  def display_message(assigns, %{type: :system, uuid: uuid, content: content}) do
+    ~H"""
+    <p id={uuid}><em><%= content %></em></p>
     """
   end
 
-  def display_message(%{uuid: uuid, content: content, username: username}) do
-    ~E"""
-    <p id="<%= uuid %>"><strong><%= username<>": "%></strong><%= content %></p>
+  def display_message(assigns, %{uuid: uuid, content: content, username: username}) do
+    ~H"""
+    <p id={uuid}><strong><%= username<>": "%></strong><%= content %></p>
     """
   end
 end
