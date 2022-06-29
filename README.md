@@ -1,5 +1,9 @@
-# Chat
+# anony-chat
 https://anony-chat.gigalixirapp.com/
+
+anonymous and ephemeral real-time messenger
+
+built with elixir + phoenix liveview
 
 To start your Phoenix server:
 
