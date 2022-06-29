@@ -7,6 +7,7 @@
   height: 500px;
 }
 
+
 #chat-messages {
   flex-grow: 1;
   padding: 1em;
