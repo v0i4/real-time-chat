@@ -1,5 +1,5 @@
-# anony-chat
-https://anony-chat.gigalixirapp.com/
+# anonychat
+https://anonychat.gigalixirapp.com/
 
 anonymous and ephemeral real-time messenger
 
