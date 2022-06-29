@@ -1,4 +1,5 @@
 # Chat
+https://anony-chat.gigalixirapp.com/
 
 To start your Phoenix server:
 
