@@ -7,6 +7,11 @@
   height: 500px;
 }
 
+#chat-messages {
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: auto;
+}
 
 #chat-messages {
   flex-grow: 1;
