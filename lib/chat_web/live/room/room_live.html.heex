@@ -2,7 +2,7 @@
 <p>currently chatting on <strong>#<%= @room_id %></strong> as <strong>@<%= @username %></strong></p>
 
 <div id="chat-container">
-    <div id="chat-messages" phx-update="append">
+    <div id="chat-messages" phx-update="prepend">
         <%= for message <- @messages do %>
         <%= display_message(assigns, message)%>
         <% end %>
