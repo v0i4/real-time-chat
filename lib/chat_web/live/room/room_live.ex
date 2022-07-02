@@ -5,10 +5,15 @@ defmodule ChatWeb.RoomLive do
   def mount(%{"id" => room_id}, _s, socket) do
     topic = "room:" <> room_id
     username = MnemonicSlugs.generate_slug(2)
+    is_typing = false
 
     if connected?(socket) do
       ChatWeb.Endpoint.subscribe(topic)
-      ChatWeb.Presence.track(self(), topic, username, %{})
+
+      ChatWeb.Presence.track(self(), topic, username, %{
+        typing: is_typing,
+        username: username
+      })
     end
 
     {:ok,
@@ -36,31 +41,76 @@ defmodule ChatWeb.RoomLive do
   end
 
   @impl true
+  def handle_event("is-typing", params, socket = %{assigns: %{topic: topic, username: username}}) do
+    if params["chat"]["message"] == "" do
+      ChatWeb.Presence.update_presence(self(), topic, username, %{typing: false})
+    else
+      ChatWeb.Presence.update_presence(self(), topic, username, %{typing: true})
+      # bolar um timeout aqui, p aperfeicoar a funcao
+    end
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event(
+        "stop_typing",
+        value,
+        socket = %{assigns: %{topic: topic, username: username, message: message}}
+      ) do
+    # message = Chats.change_message(message, %{content: value})
+    ChatWeb.Presence.update_presence(self(), topic, username, %{typing: false})
+    {:noreply, assign(socket, message: message)}
+  end
+
+  @impl true
   def handle_info(%{event: "new-message", payload: message}, socket) do
     {:noreply, assign(socket, messages: [message])}
   end
 
-  @impl true
-  def handle_info(%{event: "presence_diff", payload: %{joins: joins, leaves: leaves}}, socket) do
-    join_messages =
-      joins
-      |> Map.keys()
-      |> Enum.map(fn username ->
-        %{type: :system, uuid: UUID.uuid4(), content: "#{username} joined"}
-      end)
+#  @impl true
+#  def handle_info(
+#        %{event: "presence_diff", payload: %{joins: joins, leaves: leaves}},
+#        socket
+#      ) do
+#    join_messages =
+#      joins
+#      |> Map.keys()
+#      |> Enum.map(fn username ->
+#        %{type: :system, uuid: UUID.uuid4(), content: "#{username} joined"}
+#      end)
+#
+#    leave_messages =
+#      leaves
+#      |> Map.keys()
+#      |> Enum.map(fn username ->
+#        %{type: :system, uuid: UUID.uuid4(), content: "#{username} left"}
+#      end)
 
-    leave_messages =
-      leaves
-      |> Map.keys()
-      |> Enum.map(fn username ->
-        %{type: :system, uuid: UUID.uuid4(), content: "#{username} left"}
-      end)
+#    user_list =
+#      ChatWeb.Presence.list(socket.assigns.topic)
+#      |> Enum.map(fn {_username, data} ->
+#        data[:metas]
+#        |> List.first()
+#      end)
+
+#    {:noreply, assign(socket, messages: join_messages ++ leave_messages, user_list: user_list)}
+#  end
+
+  @impl true
+  def handle_info(
+        %{event: "presence_diff", payload: payload},
+        socket
+      ) do
 
     user_list =
       ChatWeb.Presence.list(socket.assigns.topic)
-      |> Map.keys()
+      |> Enum.map(fn {_username, data} ->
+        data[:metas]
+        |> List.first()
+      end)
 
-    {:noreply, assign(socket, messages: join_messages ++ leave_messages, user_list: user_list)}
+    {:noreply, assign(socket, user_list: user_list)}
   end
 
   def display_message(assigns, %{type: :system, uuid: uuid, content: content}) do
