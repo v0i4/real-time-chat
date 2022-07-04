@@ -55,7 +55,7 @@ defmodule ChatWeb.RoomLive do
   @impl true
   def handle_event(
         "stop_typing",
-        value,
+        _value,
         socket = %{assigns: %{topic: topic, username: username, message: message}}
       ) do
     # message = Chats.change_message(message, %{content: value})
@@ -113,7 +113,7 @@ defmodule ChatWeb.RoomLive do
 
   @impl true
   def handle_info(
-        %{event: "presence_diff", payload: payload},
+        %{event: "presence_diff", payload: _payload},
         socket
       ) do
     user_list =
