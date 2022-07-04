@@ -128,7 +128,7 @@ defmodule ChatWeb.RoomLive do
 
   def display_message(assigns, %{type: :system, uuid: uuid, content: content}) do
     ~H"""
-    <p id={uuid}><em><%= content %></em></p>
+    <p class="text-green-500", id={uuid}><em><%= content %></em></p>
     """
   end
 

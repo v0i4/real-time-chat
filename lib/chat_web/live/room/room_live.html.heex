@@ -1,19 +1,20 @@
+<p class="flex justify-center pt-10 tracking-wider text-green-500">currently chatting on  <%= " #" <> @room_id <> " " %></p>
+<p class="flex justify-center tracking-wider">as  @<%= @username %></p>
 
-<p>currently chatting on <strong>#<%= @room_id %></strong> as <strong>@<%= @username %></strong></p>
-
-<div id="chat-container">
+<div id="chat-container" class="flex flex-row justify-center px-8">
     <div id="chat-messages" phx-update="prepend">
         <%= for message <- @messages do %>
         <%= display_message(assigns, message)%>
         <% end %>
     </div>
-    <div id="user-list">
-            <h3>users online:</h3>
+    <div id="user-list" class="flex  flex-col align-top">
+            <h3 class="font-bold">users online:</h3>
             <%= for  user <- @user_list do %>
-                <p><%=  user.username %><%= if  user.typing, do: " (typing..) " %></p>
+                <p><%=  user.username %><%= if  user.typing, do: " (typing..) " %>  </p>
             <% end %>
         </div>
 </div>
-
-<%= f = form_for :chat, "#", id: "chat-form", phx_submit: :submit_message, phx_change: :form_update %>
-<%= text_input f, :message, phx_blur: "stop_typing", phx_change: "is-typing",placeholder: "enter message..", autocomplete: "off", value: @message, required: "true" %>
+<div id="input-msg" class="flex justify-center">
+<%= f = form_for :chat, "#", class: "flex-row w-full", id: "chat-form", phx_submit: :submit_message, phx_change: :form_update %>
+<%= text_input f, :message, phx_blur: "stop_typing", id: "input-msg-field", class: "form-input block w-full my-4 text-green-500 focus:outline-none focus:border-indigo-500 focus:ring-indigo-700 focus:ring-1 ", phx_change: "is-typing", placeholder: "enter message..", autocomplete: "off", value: @message, required: "true", type: "text" %>
+</div>
