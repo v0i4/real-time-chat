@@ -68,41 +68,54 @@ defmodule ChatWeb.RoomLive do
     {:noreply, assign(socket, messages: [message])}
   end
 
-#  @impl true
-#  def handle_info(
-#        %{event: "presence_diff", payload: %{joins: joins, leaves: leaves}},
-#        socket
-#      ) do
-#    join_messages =
-#      joins
-#      |> Map.keys()
-#      |> Enum.map(fn username ->
-#        %{type: :system, uuid: UUID.uuid4(), content: "#{username} joined"}
-#      end)
-#
-#    leave_messages =
-#      leaves
-#      |> Map.keys()
-#      |> Enum.map(fn username ->
-#        %{type: :system, uuid: UUID.uuid4(), content: "#{username} left"}
-#      end)
+  @impl true
+  def handle_info(
+        %{event: "presence_diff", payload: %{joins: joins, leaves: leaves} = payload},
+        socket
+      ) do
+    join_messages =
+      joins
+      |> Map.keys()
+      |> Enum.map(fn username ->
+        %{type: :system, uuid: UUID.uuid4(), content: "#{username} joined"}
+      end)
 
-#    user_list =
-#      ChatWeb.Presence.list(socket.assigns.topic)
-#      |> Enum.map(fn {_username, data} ->
-#        data[:metas]
-#        |> List.first()
-#      end)
+    leave_messages =
+      leaves
+      |> Map.keys()
+      |> Enum.map(fn username ->
+        %{type: :system, uuid: UUID.uuid4(), content: "#{username} left"}
+      end)
 
-#    {:noreply, assign(socket, messages: join_messages ++ leave_messages, user_list: user_list)}
-#  end
+    user_list =
+      ChatWeb.Presence.list(socket.assigns.topic)
+      |> Enum.map(fn {_username, data} ->
+        data[:metas]
+        |> List.first()
+      end)
+
+      cond do
+
+        payload.joins == %{} && payload.leaves != %{}
+        ->
+      {:noreply, assign(socket, messages: join_messages ++ leave_messages, user_list: user_list)}
+
+
+        payload.joins != %{} && payload.leaves == %{}
+        ->
+      {:noreply, assign(socket, messages: join_messages ++ leave_messages, user_list: user_list)}
+
+        true ->
+      {:noreply, assign(socket, user_list: user_list)}
+
+    end
+  end
 
   @impl true
   def handle_info(
         %{event: "presence_diff", payload: payload},
         socket
       ) do
-
     user_list =
       ChatWeb.Presence.list(socket.assigns.topic)
       |> Enum.map(fn {_username, data} ->

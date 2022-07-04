@@ -15,10 +15,6 @@ defmodule ChatWeb.Presence do
       |> List.first()
       |> Map.merge(payload)
 
-#    IO.inspect pid
-#    IO.inspect topic
-#    IO.inspect key
-#    IO.inspect metas
     ChatWeb.Presence.update(pid, topic, key, metas)
   end
 end
