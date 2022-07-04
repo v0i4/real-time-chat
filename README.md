@@ -1,4 +1,6 @@
 # anonychat
+
+my studies about Phoenix Channels, Presence, LiveView
 https://anonychat.gigalixirapp.com/
 
 anonymous and ephemeral real-time messenger
