@@ -1,6 +1,27 @@
-/* This file is for your main application CSS */
-@import "./phoenix.css";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
+/* This file is for your main application CSS */
+body{
+  @apply bg-zinc-900 text-zinc-100;
+  --webkit-font-smoothing: antialiased;
+}
+
+form.crud {
+  @apply bg-zinc-700 flex flex-col m-10 p-20;
+}
+#input-msg {
+  display: flex;
+  margin: auto;
+  padding: 1em;
+  margin: 1em 5em 1em 5em;
+}
+
+#input-msg-field {
+  background-color: transparent;
+  border: 1px solid indigo;
+}
 #chat-container {
   display: flex;
   justify-content: space-between;
@@ -16,8 +37,8 @@
 #chat-messages {
   flex-grow: 1;
   padding: 1em;
-  margin: -1em 1em 1em -1em;
-  border: 1px solid #cccc;
+  margin: 1em 5em 1em 5em;
+  border: 1px solid indigo;
 }
 
 #chat-messages p {
@@ -179,3 +200,4 @@
     opacity: 0;
   }
 }
+
