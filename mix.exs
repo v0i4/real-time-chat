@@ -61,7 +61,7 @@ defmodule Chat.MixProject do
   defp aliases do
     [
       setup: ["deps.get"],
-       "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
+      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
     ]
   end
 end
