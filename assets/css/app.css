@@ -12,6 +12,15 @@ form.crud {
   @apply bg-zinc-700 flex flex-col m-10 p-20;
 }
 
+#main-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 30px;
+  padding: 30px 30px 30px 30px;
+  flex-direction: column;
+}
+
 #input-msg {
   display: flex;
   margin: auto;
@@ -20,6 +29,12 @@ form.crud {
 }
 
 #input-msg-field {
+  background-color: transparent;
+  border: 1px solid indigo;
+}
+
+
+#input-room-id {
   background-color: transparent;
   border: 1px solid indigo;
 }

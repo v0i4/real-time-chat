@@ -1,2 +1,15 @@
-<button phx-click="random-room" title="generate a random room..">create a random room</button>
+<div id="main-div">
+    <button phx-click="random-room", type="button" class="py-10 focus:outline-none text-white bg-[#4b0082] hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">create a random room</button>
+    <form phx-submit="custom-room">
+        <input id="input-room-id",
+               name="room_id",
+               type="text",
+               class="form-input block w-full my-4 text-green-500 focus:outline-none focus:border-indigo-500 focus:ring-indigo-700 focus:ring-1 placeholder-green-500",
+               placeholder="create a custom room name.. ",
+               autocomplete="off",
+               value={@room_id},
+               required="true"
+        />
+    </form>
 
+</div>
