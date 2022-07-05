@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "deploy": "NODE_ENV=production tailwind --postcss --minify --input=css/app.css --output=../priv/static/assets/app.css"
+        "deploy": "cd .. && mix assets.deploy && rm -f _build/esbuild*"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.7",
