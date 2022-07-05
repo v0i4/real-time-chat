@@ -8,7 +8,7 @@
         <% end %>
     </div>
     <div id="user-list" class="flex  flex-col align-top">
-            <h3 class="font-bold">users online:</h3>
+            <h3 class="font-bold text-green-500">users online:</h3>
             <%= for  user <- @user_list do %>
                 <p><%=  user.username %><%= if  user.typing, do: " (typing..) " %>  </p>
             <% end %>

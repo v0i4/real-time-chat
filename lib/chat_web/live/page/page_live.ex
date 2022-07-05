@@ -3,7 +3,7 @@ defmodule ChatWeb.PageLive do
 
   @impl true
   def mount(_p, _s, socket) do
-    {:ok, socket}
+    {:ok, assign(socket, page_title: "_anonychat_", room_id: "")}
   end
 
   @impl true
@@ -11,5 +11,12 @@ defmodule ChatWeb.PageLive do
     random_slug = "/" <> MnemonicSlugs.generate_slug(3)
 
     {:noreply, push_redirect(socket, to: random_slug)}
+  end
+
+  @impl true
+  def handle_event("custom-room", %{"room_id" => room_id}, socket) do
+    custom_room = "/" <> room_id
+
+   {:noreply, push_redirect(socket, to: custom_room)}
   end
 end
