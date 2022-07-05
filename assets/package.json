@@ -1,10 +1,10 @@
 {
     "scripts": {
-        "deploy": "NODE_ENV=production tailwindcss --postcss --minify --input=css/app.css --output=../priv/static/assets/app.css"
+        "deploy": "NODE_ENV=production tailwind --postcss --minify --input=css/app.css --output=../priv/static/assets/app.css"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.7",
-        "postcss": "^8.4.14",
-        "tailwindcss": "^3.1.4"
+        "postcss": "^8.4.13",
+        "tailwindcss": "^3.0.24"
     }
 }
