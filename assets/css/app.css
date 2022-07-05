@@ -1,9 +1,9 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* This file is for your main application CSS */
-body{
+body {
   @apply bg-zinc-900 text-zinc-100;
   --webkit-font-smoothing: antialiased;
 }
@@ -11,6 +11,7 @@ body{
 form.crud {
   @apply bg-zinc-700 flex flex-col m-10 p-20;
 }
+
 #input-msg {
   display: flex;
   margin: auto;
@@ -22,6 +23,7 @@ form.crud {
   background-color: transparent;
   border: 1px solid indigo;
 }
+
 #chat-container {
   display: flex;
   justify-content: space-between;
@@ -200,4 +202,3 @@ form.crud {
     opacity: 0;
   }
 }
-
