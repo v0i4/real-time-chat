@@ -5,7 +5,7 @@ https://anonychat.gigalixirapp.com/
 
 anonymous and ephemeral real-time messenger
 
-built with elixir + phoenix liveview
+builted with elixir + phoenix liveview
 praticing some concepts of Phoenix Channels, Presence, LiveView
 
 To start your Phoenix server:
